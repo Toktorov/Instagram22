@@ -20,12 +20,30 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Главная</a>
                   </li>
+                  {% if user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link" href="friends.html">Друзья</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Мой аккаунт</a>
+                    <a class="nav-link" href="{% url 'post_create' %}">Создать публикацию</a>
                   </li>
+                  {% endif %}
+                  
+                  {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">{{ request.user.username }}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_login' %}">Войти</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться</a>
+                  </li>
+                  {% endif %}
                 </ul>
                 <form class="d-flex">
                   <input class="form-control me-2" type="search" placeholder="Искать..." aria-label="Search">
