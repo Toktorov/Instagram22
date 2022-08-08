@@ -63,7 +63,7 @@
                 <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{ post.image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
     
                 <div class="card-body">
-                  <a href="{% url 'post_detail' post.id %}" style="text-decoration:none; color: black;"><h4 class="card-text">{{ post.title }}</h4></a>
+                  <a href="{% url 'post_detail' post.id %}" style="text-decoration:none; color: black;"><h4 class="card-text">{{ post.title }} {{ post.id }}</h4></a>
                   <a href="{% url 'post_detail' post.id %}" style="text-decoration:none; color: black;"><p class="card-text">{{ post.description|truncatewords:20 }}</p></a>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">

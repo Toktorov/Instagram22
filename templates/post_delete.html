@@ -28,41 +28,26 @@
                   </li>
                 </ul>
                 <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+                  <input class="form-control me-2" type="search" placeholder="Искать..." aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Найти</button>
                 </form>
               </div>
             </div>
           </nav>
     </div>
 
-    <div class="album py-5 bg-light">
-        <div class="container">
-          <div style="margin-bottom:25px; align-items: center; display:flex; justify-content:center;" class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
-            <div class="position-relative col col-md-7">
-              <div class="card shadow-sm">
-                <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{ post.image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
-    
-                <div class="card-body">
-                  <h4 class="card-text">{{ post.title }}</h4>
-                  <p class="card-text">{{ post.description }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">@{{ post.user }}</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Лайк</button><a href="comment.html" class="btn btn-sm btn-outline-secondary">Коммент</a>
-                      <a href="{% url 'post_update' post.id %}"><button class="btn btn-sm btn-outline-success">Обновить</button></a>
-                      <a href="{% url 'post_delete' post.id %}"><button class="btn btn-sm btn-outline-danger">Удалить</button></a>
-                    </div>
-                    <small class="text-muted">{{ post.created }}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-                 
+    <div style="margin: 50px 0;" class="row">
+        <div style="max-width:600px !important; margin:0 auto !important;" class="container">
+            <form method="POST" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <p class="mb-1">{{ request.user }} вы точно хотите удалить данный пост? {{ post.title }}</p>
+                <button type="submit" class="btn btn-danger">Удалить</button>
+              </form>
         </div>
-      </div>
-      <footer class="text-muted py-5">
+    </div>
+    
+    
+    <footer class="text-muted py-5">
         <div class="container">
           <p class="float-end mb-1">
             <a href="#">Back to top</a>
@@ -70,7 +55,7 @@
           <p class="mb-1">Album example is © Bootstrap, but please download and customize it for yourself!</p>
           <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
         </div>
-      </footer> 
+    </footer> 
 
 
 

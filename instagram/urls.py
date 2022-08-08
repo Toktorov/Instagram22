@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from posts.views import index, post_detail, post_create
+from posts.views import index, post_detail, post_create, post_update, post_delete
 from users.views import register, user_login
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,6 +26,8 @@ urlpatterns = [
     path('', index, name = "index"),
     path('post/<int:id>', post_detail, name = "post_detail"),
     path('post/create/', post_create, name = "post_create"),
+    path('post/update/<int:id>', post_update, name = "post_update"),
+    path('post/delete/<int:id>', post_delete, name = "post_delete"),
     path('register/', register, name = "register"),
     path('login/', user_login, name = "user_login"),
     path('logout/', LogoutView.as_view(next_page = "index"), name = "logout")
