@@ -8,33 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="{% url 'index' %}"><img style="height: 50px; width:150px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png" alt=""></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Главная</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="friends.html">Друзья</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Мой аккаунт</a>
-                  </li>
-                </ul>
-                <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-              </div>
-            </div>
-          </nav>
-    </div>
+  {% include 'include/header.html' %}
 
     <div class="album py-5 bg-light">
         <div class="container">
@@ -50,8 +24,10 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">@{{ post.user }}</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">Лайк</button><a href="comment.html" class="btn btn-sm btn-outline-secondary">Коммент</a>
+                      {% if user.is_authenticated and request.user == post.user %}
                       <a href="{% url 'post_update' post.id %}"><button class="btn btn-sm btn-outline-success">Обновить</button></a>
                       <a href="{% url 'post_delete' post.id %}"><button class="btn btn-sm btn-outline-danger">Удалить</button></a>
+                      {% endif %}
                     </div>
                     <small class="text-muted">{{ post.created }}</small>
                   </div>

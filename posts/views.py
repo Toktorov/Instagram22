@@ -30,7 +30,7 @@ def post_update(request, id):
     if request.method == "POST":
         title = request.POST.get('title')
         description = request.POST.get('description')
-        image = request.FILES   .get('image')
+        image = request.FILES.get('image')
         post = Post.objects.get(id = id)
         post.title = title
         post.description = description
