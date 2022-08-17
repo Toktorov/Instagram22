@@ -9,14 +9,12 @@
 </head>
 <body>
   {% include 'include/header.html' %}
-
     <div class="album py-5 bg-light">
         <div class="container">
           <div style="margin-bottom:25px; align-items: center; display:flex; justify-content:center;" class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
             <div class="position-relative col col-md-7">
               <div class="card shadow-sm">
                 <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{ post.image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
-    
                 <div class="card-body">
                   <h4 class="card-text">{{ post.title }}</h4>
                   <p class="card-text">{{ post.description }}</p>
@@ -34,10 +32,55 @@
                 </div>
               </div>
             </div>
-          </div>
-                 
+          </div> 
         </div>
       </div>
+
+      <div class="album py-2 bg-light">
+        <div class="container">
+          <div style="margin-bottom:25px; align-items: center; display:flex; justify-content:center;" class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
+            <div class="position-relative col col-md-7">
+              <div class="card shadow-sm">
+                
+                <div class="card-body p-4">
+                  <div class="form-outline mb-4">
+                    {% if user.is_authenticated %}
+                  <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name = "text" class="form-control" placeholder="Написать комментарий..." />
+                    <button style="margin-top: 10px;" class = "btn btn-outline-dark">Оставить комментарий</button>
+                  </form>
+                  {% else %}
+                  <p>Зарегистрируйтесь или войдите в свой аккаунт, чтобы оставлять комментарий</p>
+                  
+                  {% endif %}
+                  </div>
+                  {% for comment in post.comment_post.all %}
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <p>{{ comment.text }}</p>
+          
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                          <img src="{{ comment.user.profile_image.url }}" alt="avatar" style = "border-radius: 30px;" width="25"
+                            height="25"/>
+                          <p class="small mb-0 ms-2">{{ comment.user }}</p>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+                          <p class="small text-muted mb-0">{{ comment.created }}</p>
+                          <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+      
       <footer class="text-muted py-5">
         <div class="container">
           <p class="float-end mb-1">
