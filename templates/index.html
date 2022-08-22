@@ -24,8 +24,9 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">@{{ post.user }}</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Лайк</button><a href="comment.html" class="btn btn-sm btn-outline-secondary">Коммент</a>
+                        
                     </div>
+                    <small style="margin-left: 320px;" class="text-muted">{{ post.like_post.all.count }} лайк</small>
                     <small class="text-muted">{{ post.created }}</small>
                   </div>
                 </div>
