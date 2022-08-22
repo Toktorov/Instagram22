@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from users.models import User
 from django.contrib.auth import login, authenticate
+from posts.models import Post
 
 # Create your views here.
 def register(request):
@@ -29,3 +30,10 @@ def user_login(request):
         login(request, user)
         return redirect('index')
     return render(request, 'login.html')
+
+def account(request, id):
+    user = User.objects.get(id = id)
+    context = {
+        'user' : user,
+    }
+    return render(request, 'my_account.html', context)

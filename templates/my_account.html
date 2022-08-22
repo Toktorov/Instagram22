@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,54 +8,24 @@
     <title>Bootstrap 5</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 </head>
-<body>
-    <header class=" simple_padding header bg-light"> 
-        <div class="container">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#">Instagram</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Главное</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Чат</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Мой аккаунт</a>
-                      </li>
-                    </ul>
-                    <form class="d-flex">
-                      <input class="form-control me-2" type="search" placeholder="Поиск...  " aria-label="Search">
-                      <button class="btn btn-outline-success" type="submit">Поиск</button>
-                    </form>
-                  </div>
-                </div>
-              </nav>
-        </div>
-    </header>
+<body class="bg-light">
+    {% include 'include/header.html' %}
     <div class=" simple_padding album py-5 bg-light">
         <div class="container">
-    
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
             <div class="top">
               <ul class="info_bar">
-                <li class=""><img class="acc-logo" src="https://i.pinimg.com/474x/e0/4a/a3/e04aa3fbb6112439f8c5a0d02c5e5722.jpg" alt=""></li>
-                <li class="info_el"><h5 class="text-5">232</h5><p class="text">Публикации</p></li>
+                <li class=""><img class="acc-logo" style="border-radius: 100px;" height="300px" src="{{ user.profile_image.url }}" alt=""></li>
+                <li class="info_el"><h5 class="text-5">{{ user.post_user.all.count }}</h5><p class="text">Публикации</p></li>
                 <li class="info_el"><h5 class="text-5">232</h5><p class="text">Подписчики</p></li>
                 <li class="info_el"><h5 class="text-5">232</h5><p class="text">Подписки</p></li>
               </ul>
               <div class="simple_padding">
-                <h2 class="name">iustitia</h2>
-                <p class="description">Programmer</p>
-                <a href="www.youtube.com" class="info_link">www.youtube.com</a>
+                <h2 class="name">{{ user.username }}</h2>
+                <p class="description">{{ user.last_name }} {{ user.first_name }}</p>
+                <a href="www.youtube.com" class="info_link">На сайте с {{ user.date_joined }}</a>
               </div>
               <button class="btn btn-outline-primary">Редактировать профиль</button>
             </div>
@@ -62,35 +33,19 @@
           <div class="row simple_padding row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <h4 class="col-12 flex-center">Все публикации</h4>
             <div style="width: 100%;" class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
+              {% for post in user.post_user.all %}
               <div class="col">
                 <div class="card shadow-sm">
-                  <a class="post_link" href="">
-                  <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="https://i.pinimg.com/474x/e0/4a/a3/e04aa3fbb6112439f8c5a0d02c5e5722.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a>
+                  <a class="post_link" href="{% url 'post_detail' post.id %}">
+                  <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{ post.image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a>
                 </div>
               </div>
-              <div class="col">
-                <div class="card shadow-sm">
-                  <a class="post_link" href="">
-                  <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="https://i.pinimg.com/474x/e0/4a/a3/e04aa3fbb6112439f8c5a0d02c5e5722.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card shadow-sm">
-                  <a class="post_link" href="">
-                  <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="https://i.pinimg.com/474x/e0/4a/a3/e04aa3fbb6112439f8c5a0d02c5e5722.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card shadow-sm">
-                  <a class="post_link" href="">
-                  <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="https://i.pinimg.com/474x/e0/4a/a3/e04aa3fbb6112439f8c5a0d02c5e5722.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img></a>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
       </div>
-
+    
     <footer class="simple_padding footer bg-light">
         <div class="container">
 
