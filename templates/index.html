@@ -1,3 +1,4 @@
+{% load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,17 +7,18 @@
     <title>Instragam</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 </head>
-<body>
+<body class="bg-light">
     {% include 'include/header.html' %}
-
-      <div class="album py-5 bg-light">
-        <div class="container">
+  <div class="main bg-light">
+    <div class="container">
+      <div class="album py-5 ">
           {% for post in posts %}
           <div style="margin-bottom:25px; align-items: center; display:flex; justify-content:center;" class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
             <div class="position-relative col col-md-7">
               <div class="card shadow-sm">
-                <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{ post.image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
+                <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{ post.image.url }}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
     
                 <div class="card-body">
                   <a href="{% url 'post_detail' post.id %}" style="text-decoration:none; color: black;"><h4 class="card-text">{{ post.title }} {{ post.id }}</h4></a>
@@ -53,7 +55,23 @@
             </div>
           </div>
         </div>
+        
       </div>
+      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-light" style="    margin-left: -151px;">
+        <a href="/" style="border: none;" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none">
+          <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-5 fw-semibold">Рекомендации</span>
+        </a>
+        <div style="border: none;" class="list-group list-group- scrollarea">
+          <a href="#" style="border: none;" class="bg-light list-group-item  py-3 lh-tight" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <strong class="mb-1">Имя аккаунта</strong>
+            </div>
+            <div class="col-10 mb-1 small">Описание аккаунта</div>
+          </a>
+        </div>
+      </div>
+    </div>
       <footer class="text-muted py-5">
         <div class="container">
           <p class="float-end mb-1">
