@@ -37,3 +37,26 @@ def account(request, id):
         'user' : user,
     }
     return render(request, 'my_account.html', context)
+
+def account_update(request, id):
+    user = User.objects.get(id = id)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        last_name = request.POST.get('last_name')
+        first_name = request.POST.get('first_name')
+        email = request.POST.get('email')
+        tel = request.POST.get('tel')
+        profile_image = request.FILES.get('profile_image')
+        user = User.objects.get(id = id)
+        user.username = username 
+        user.last_name = last_name 
+        user.first_name = first_name 
+        user.email = email 
+        user.phone = tel 
+        user.profile_image = profile_image
+        user.save() 
+        return redirect('account', user.id)
+    context = {
+        'user' : user
+    }
+    return render(request, 'account_update.html', context)
