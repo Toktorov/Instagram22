@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from posts.views import index, post_detail, post_create, post_update, post_delete
-from users.views import register, user_login, account, account_update
+from users.views import register, user_login, account, account_update, account_delete, account_followers, account_following
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
@@ -33,6 +33,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page = "index"), name = "logout"),
     path('account/<int:id>',account, name = "account"),
     path('account/update/<int:id>', account_update, name = "account_update"),
+    path('account/delete/<int:id>', account_delete, name = "account_delete"),
+    path('account/followers/<int:id>', account_followers, name = "account_followers"),
+    path('account/following/<int:id>', account_following, name = "account_following"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

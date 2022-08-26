@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect
 from posts.models import Post, PostComment, PostLike
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
     posts = Post.objects.all().order_by('-id')
+    search_post = request.GET.get('search')
+    if search_post:
+        posts = Post.objects.filter(Q(title__icontains=search_post) | Q(description__icontains=search_post))
+    # else:
+    #     # If not searched, return default posts
+    #     posts = Post.objects.all().order_by("-title")
     context = {
         'posts' : posts
     }

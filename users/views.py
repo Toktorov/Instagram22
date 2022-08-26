@@ -1,5 +1,6 @@
+import re
 from django.shortcuts import redirect, render
-from users.models import User
+from users.models import User, UserFollow
 from django.contrib.auth import login, authenticate
 from posts.models import Post
 
@@ -33,8 +34,23 @@ def user_login(request):
 
 def account(request, id):
     user = User.objects.get(id = id)
+    follow_status = UserFollow.objects.filter(from_user=request.user, to_user=user).exists()
+    if request.method == "POST":
+        if 'follow' in request.POST:
+            user = User.objects.get(id = id)
+            try:
+                user = UserFollow.objects.get(from_user=request.user, to_user = user)
+                user.delete()
+                user = User.objects.get(id = id)
+                return redirect('account', user.id)
+            except:
+                
+                UserFollow.objects.create(from_user=request.user, to_user = user)
+                return redirect('account', user.id)
+        
     context = {
         'user' : user,
+        'follow_status' : follow_status
     }
     return render(request, 'my_account.html', context)
 
@@ -60,3 +76,28 @@ def account_update(request, id):
         'user' : user
     }
     return render(request, 'account_update.html', context)
+
+def account_delete(request, id):
+    user = User.objects.get(id = id)
+    if request.method == "POST":
+        user = User.objects.get(id = id)
+        user.delete()
+        return redirect('index')
+    context = {
+        'user' : user
+    }
+    return render(request, 'account_delete.html', context)
+
+def account_followers(request, id):
+    user = User.objects.get(id = id)
+    context = {
+        'user' : user
+    }
+    return render(request, 'user_followers.html', context)
+
+def account_following(request, id):
+    user = User.objects.get(id = id)
+    context = {
+        'user' : user
+    }
+    return render(request, 'user_following.html', context)

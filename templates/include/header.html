@@ -13,8 +13,8 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><svg aria-label="Главная страница" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M9.005 16.545a2.997 2.997 0 012.997-2.997h0A2.997 2.997 0 0115 16.545V22h7V11.543L12 2 2 11.543V22h7.005z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg></a>
               </li>
               <li class="nav-link">
-                <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Искать..." aria-label="Search">
+                <form class="d-flex" action = "{% url 'index' %}">
+                  <input class="form-control me-2" type="search" name = "search" placeholder="Искать..." aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Найти</button>
                 </form>
               </li>
@@ -24,8 +24,8 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
                 </li>
                 <li class="nav-link">
-                  <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Искать..." aria-label="Search">
+                  <form class="d-flex" action = "{% url 'index' %}">
+                    <input class="form-control me-2" type="search" name = "search" placeholder="Искать..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Найти</button>
                   </form>
                 </li>

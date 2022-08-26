@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,17 +19,32 @@
               <ul class="info_bar">
                 <li class=""><img class="acc-logo" style="border-radius: 100px;" height="300px" src="{{ user.profile_image.url }}" alt=""></li>
                 <li class="info_el"><h5 class="text-5">{{ user.post_user.all.count }}</h5><p class="text">Публикации</p></li>
-                <li class="info_el"><h5 class="text-5">232</h5><p class="text">Подписчики</p></li>
-                <li class="info_el"><h5 class="text-5">232</h5><p class="text">Подписки</p></li>
+                <a href="{% url 'account_followers' user.id %}"><li class="info_el"><h5 class="text-5">{{ user.user_following.all.count }}</h5><p class="text">Подписчики</p></li></a>
+                <a href="{% url 'account_following' user.id %}"><li class="info_el"><h5 class="text-5">{{ user.user_follow.all.count }}</h5><p class="text">Подписки</p></li></a>
               </ul>
+              {% if request.user != user %}
+              {% if follow_status == True %}
+              <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name = "follow">
+                <button class = "btn btn-danger">Отписаться</button>
+              </form>
+              {% else %}
+              <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name = "follow">
+                <button class = "btn btn-primary">Подписаться</button>
+              </form>
+              {% endif %}
+              {% endif %}
               <div class="simple_padding">
                 <h2 class="name">{{ user.username }}</h2>
                 <p class="description">{{ user.last_name }} {{ user.first_name }}</p>
                 <a href="www.youtube.com" class="info_link">На сайте с {{ user.date_joined }}</a>
               </div>
               {% if user.is_authenticated and request.user == user %}
-              
               <a href="{% url 'account_update' user.id %}"><button class="btn btn-outline-primary">Редактировать профиль</button></a>
+              <a href="{% url 'account_delete' user.id %}" style="margin-top: 10px;"><button class="btn btn-outline-danger">Удалить профиль</button></a>
               {% endif %}
             </div>
           </div>
